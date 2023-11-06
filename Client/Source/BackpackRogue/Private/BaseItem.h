@@ -3,24 +3,60 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "UObject/NoExportTypes.h"
+#include "ItemDataStructure.h"
 #include "BaseItem.generated.h"
 
-UCLASS()
-class ABaseItem : public AActor
+UCLASS(Abstract, BlueprintType, Blueprintable, EditInlineNew, DefaultToInstanced)
+class UBaseItem : public UObject
 {
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
-	ABaseItem();
+	UPROPERTY(VisibleAnywhere, Category = "Item Data", meta = (UIMin=1, UIMax=255))
+	uint8 Quantity;
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	FName ID;
+	
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	EItemType ItemType;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	EItemQuality ItemQuality;
 
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	FItemStatistics ItemStatistics;
+
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	FItemTextData TextData;
+
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	FItemNumericData NumericData;
+
+	UPROPERTY(EditAnywhere, Category = "Item Data");
+	FItemAssetData AssetData;
+
+public:
+	UBaseItem();
+
+	UFUNCTION(Category = "Item")
+	UBaseItem* CreateItemCopy() const;
+
+	UFUNCTION(Category = "Item")
+	FORCEINLINE float GetItemStackWeight() const { return Quantity * NumericData.Weight; };
+	UFUNCTION(Category = "Item")
+	FORCEINLINE float GetItemSingleWeight() const { return NumericData.Weight; };
+	UFUNCTION(Category = "Item")
+	FORCEINLINE bool IsFullItemStack() const { return Quantity == NumericData.MaxStackSize; };
+
+	UFUNCTION(Category = "Item")
+	void SetQuantity(const uint8 NewQuantity);
+
+	UFUNCTION(Category = "Item")
+	virtual void Use(class ABaseEntity* Entity);
+	UFUNCTION(Category = "Item")
+	virtual void OnEquip(class ABaseEntity* Entity);
+	UFUNCTION(Category = "Item")
+	virtual void OnUnEquip(class ABaseEntity* Entity);
 };

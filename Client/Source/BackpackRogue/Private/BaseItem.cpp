@@ -2,26 +2,37 @@
 
 
 #include "BaseItem.h"
-
-// Sets default values
-ABaseItem::ABaseItem()
+#include "BaseEntity.h"
+UBaseItem::UBaseItem()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
 }
 
-// Called when the game starts or when spawned
-void ABaseItem::BeginPlay()
+UBaseItem* UBaseItem::CreateItemCopy() const
 {
-	Super::BeginPlay();
-	
+	UBaseItem* ItemCopy = NewObject<UBaseItem>(StaticClass());
+	ItemCopy->ID = this->ID;
+	ItemCopy->Quantity = this->Quantity;
+	ItemCopy->ItemQuality = this->ItemQuality;
+	ItemCopy->ItemType = this->ItemType;
+	ItemCopy->TextData = this->TextData;
+	ItemCopy->NumericData = this->NumericData;
+	ItemCopy->ItemStatistics = this->ItemStatistics;
+	ItemCopy->AssetData = this->AssetData;
+	return ItemCopy;
 }
 
-// Called every frame
-void ABaseItem::Tick(float DeltaTime)
+void UBaseItem::SetQuantity(const uint8 NewQuantity)
 {
-	Super::Tick(DeltaTime);
-
 }
 
+void UBaseItem::Use(ABaseEntity* Entity)
+{
+}
+
+void UBaseItem::OnEquip(ABaseEntity* Entity)
+{
+}
+
+void UBaseItem::OnUnEquip(ABaseEntity* Entity)
+{
+}
