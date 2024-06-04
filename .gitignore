@@ -73,3 +73,6 @@ Client/Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 Client/DerivedDataCache/*
+
+#WeaponAsset
+Client/Content/Weapon_Pack/*
