@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+// 캐릭터 이동 요청 메시지
+message MoveRequest {
+  string player_id = 1;
+  float x = 2;
+  float y = 3;
+  float z = 4;
+  float rotation = 5;
+}
+
+// 캐릭터 이동 응답 메시지
+message MoveResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+// 서비스 정의
+service CharacterMoveService {
+  // 캐릭터 이동 요청
+  rpc Move(MoveRequest) returns (MoveResponse);
+}
