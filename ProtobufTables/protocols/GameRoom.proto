@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+// 게임룸 입장 요청 메시지
+message JoinRoomRequest {
+  string user_id = 1;
+  string room_id = 2;
+}
+
+// 게임룸 입장 응답 메시지
+message JoinRoomResponse {
+  bool success = 1;
+  string error_message = 2;
+  repeated Player players = 3;
+}
+
+// 플레이어 정보
+message Player {
+  string user_id = 1;
+  string nickname = 2;
+  int32 score = 3;
+}
+
+// 서비스 정의
+service GameRoomService {
+  // 게임룸 입장 요청
+  rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse);
+}

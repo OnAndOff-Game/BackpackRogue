@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// 로그인 요청 메시지
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+// 로그인 응답 메시지
+message LoginResponse {
+  bool success = 1;
+  string token = 2;
+  string error_message = 3;
+}
+
+// 서비스 정의
+service AuthService {
+  // 로그인 요청
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
