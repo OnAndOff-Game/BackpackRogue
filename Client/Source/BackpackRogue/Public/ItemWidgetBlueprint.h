@@ -12,7 +12,6 @@ k// Fill out your copyright notice in the Description page of Project Settings.
 UCLASS()
 class BACKPACKROGUE_API UItemWidgetBlueprint : public UUserWidgetBlueprint
 {
-	GENERATED_BODY()
+	GENERATED_BODY();
 	
-	override 
 };
